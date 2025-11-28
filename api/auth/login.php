@@ -23,7 +23,7 @@ try {
 
     // Verificar contraseña
     if (!password_verify($data['password'], $usuario['password'])) {
-        echo json_encode(["success" => false, "message" => "Contraseña incorrecta"]);
+        echo json_encode(["success" => false, "message" => "Contraseña o nombre de usuario incorrectos"]);
         exit;
     }
 
