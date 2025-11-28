@@ -8,7 +8,7 @@ $categoria = isset($_GET['categoria']) ? intval($_GET['categoria']) : null;
 
 try {
     // Base query
-    $sql = "SELECT 
+    $sql = "SELECT
                 p.producto_id,
                 p.nombre_producto,
                 p.precio,
