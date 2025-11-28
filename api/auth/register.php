@@ -11,11 +11,22 @@ if (!isset($data['nombre_usuario'], $data['password'], $data['telefono'], $data[
 }
 
 try {
-    // Encriptar contraseña correctamente
+    // Verificar teléfono duplicado
+    $stmt = $pdo->prepare("SELECT usuario_id FROM usuario WHERE telefono = ?");
+    $stmt->execute([$data['telefono']]);
+    if ($stmt->fetch()) {
+        echo json_encode(["success" => false, "message" => "El número de teléfono ya está registrado"]);
+        exit;
+    }
+
+    // Hashear contraseña
     $password = password_hash($data['password'], PASSWORD_BCRYPT);
 
     // Insertar usuario
-    $stmt = $pdo->prepare("INSERT INTO usuario (nombre_usuario, password, telefono, rol) VALUES (?, ?, ?, ?)");
+    $stmt = $pdo->prepare("
+        INSERT INTO usuario (nombre_usuario, password, telefono, rol)
+        VALUES (?, ?, ?, ?)
+    ");
     $stmt->execute([
         $data['nombre_usuario'],
         $password,
@@ -24,11 +35,8 @@ try {
     ]);
 
     echo json_encode(["success" => true, "message" => "Usuario registrado correctamente"]);
+
 } catch (PDOException $e) {
-    if ($e->getCode() == 23000) {
-        echo json_encode(["success" => false, "message" => "El nombre de usuario ya existe"]);
-    } else {
-        echo json_encode(["success" => false, "error" => $e->getMessage()]);
-    }
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
 ?>
