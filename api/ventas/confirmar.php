@@ -45,7 +45,7 @@ try {
     // 4. Actualizar venta
     $stmt = $pdo->prepare("
         UPDATE venta
-        SET estado_venta = 'completada', total = ?, is_carrito = 0
+        SET estado_venta = 'completada', total = ?
         WHERE id_venta = ?
     ");
     $stmt->execute([$total, $venta_id]);
