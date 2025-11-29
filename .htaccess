@@ -1,0 +1,10 @@
+# Habilitar CORS a nivel de servidor Apache
+# Estos headers se enviarán además de los que configure PHP
+<IfModule mod_headers.c>
+    # Permitir peticiones desde cualquier origen
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With, Accept, Origin"
+    Header always set Access-Control-Max-Age "86400"
+</IfModule>
+

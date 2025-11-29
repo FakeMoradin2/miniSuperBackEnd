@@ -1,4 +1,7 @@
 <?php
+// IMPORTANTE: Este archivo debe requerirse DESPUÉS de cors.php
+// para que los headers CORS estén configurados antes de cualquier error
+
 $host = 'database-2.cfic6ma02we7.us-east-2.rds.amazonaws.com';
 $db   = 'minisuper';
 $user = 'admin';
@@ -17,7 +20,11 @@ try {
     $pdo = new PDO($dsn, $user, $pass, $options);
     // echo "✅ Conectado correctamente";
 } catch (PDOException $e) {
-    http_response_code(500);
+    // Asegurar que Content-Type esté configurado antes del error
+    if (!headers_sent()) {
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code(500);
+    }
     echo json_encode(['error' => 'Error de conexión: ' . $e->getMessage()]);
     exit;
 }
