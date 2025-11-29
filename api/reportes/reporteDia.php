@@ -1,7 +1,7 @@
 <?php
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 // Leer parámetros GET opcionales (fechas)
 $fecha_inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;

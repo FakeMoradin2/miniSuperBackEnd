@@ -1,7 +1,7 @@
 <?php
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 // Leer parámetros opcionales
 $usuario_id = isset($_GET['usuario_id']) ? intval($_GET['usuario_id']) : null;

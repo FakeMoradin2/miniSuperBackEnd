@@ -1,7 +1,7 @@
 <?php
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 try {
     $stmt = $pdo->query("SELECT Id_categoria, Nombre_Categoria, activo FROM categoria");
